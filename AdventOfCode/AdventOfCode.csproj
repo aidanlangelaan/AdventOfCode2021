@@ -8,13 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Resource Include="Challenges\Day01\Day1Input.txt">
+    <Resource Include="Challenges\Day01\Day01Input.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Challenges\Day01\Day1Input.txt">
+    <None Update="Challenges\Day02\Day02Input.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Challenges\Day01\Day01Input.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
