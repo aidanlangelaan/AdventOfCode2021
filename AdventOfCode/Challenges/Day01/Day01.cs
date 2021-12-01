@@ -1,15 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdventOfCode.Challenges.Day01
+﻿namespace AdventOfCode.Challenges
 {
     public class Day01
     {
-        /// TODO
-        /// import day 1 input data
-        /// loop through all numbers and increase counter for each increase
+        private readonly int[] input;
+
+        public Day01() => input = File.ReadAllText("Challenges\\Day01\\Day1Input.txt").Split("\n").Select(i => int.Parse(i)).ToArray();
+
+        public int SolvePart1()
+        {
+            var count = 0;
+            var previous = input[0];
+            foreach (var i in input)
+            {
+                if (i > previous)
+                {
+                    count++;
+                }
+                previous = i;
+            }
+            return count;
+        }
     }
 }
