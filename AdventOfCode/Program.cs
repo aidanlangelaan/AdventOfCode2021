@@ -13,5 +13,5 @@ Console.WriteLine("- Day 02 -");
 Day02 day02 = new Day02();
 var day02Part1 = day02.SolvePart1();
 Console.WriteLine($"part 1 result: {day02Part1}");
-//var day02Part2 = day02.SolvePart2();
-//Console.WriteLine($"part 2 result: {day01Part2}\r\n");
+var day02Part2 = day02.SolvePart2();
+Console.WriteLine($"part 2 result: {day02Part2}\r\n");
