@@ -2,13 +2,32 @@
 {
     public class Day02
     {
-        private readonly int[] input;
+        private readonly string[] input;
 
-        public Day02() => input = File.ReadAllText("Challenges\\Day01\\Day02Input.txt").Split("\n").Select(i => int.Parse(i)).ToArray();
+        public Day02() => input = File.ReadAllLines("Challenges\\Day02\\Day02Input.txt").ToArray();
 
         public int SolvePart1()
         {
-            return 0;
+            var horizontal = 0;
+            var depth = 0;
+            foreach(var i in input)
+            {
+                var direction = i.Split(' ')[0];
+                var amount = int.Parse(i.Split(' ')[1]);
+                switch (direction)
+                {
+                    case "up":
+                        depth -= amount;
+                        break;
+                    case "down":
+                        depth += amount;
+                        break;
+                    case "forward":
+                        horizontal += amount;
+                        break;
+                }
+            }
+            return horizontal * depth;
         }
 
         public int SolvePart2()
