@@ -4,43 +4,60 @@
     {
         private readonly string[] input;
 
-        public Day03() => input = File.ReadAllLines("Challenges\\Day03\\Day03Input.txt").ToArray();
+        public Day03(string[] Input) => input = Input;
 
         public int SolvePart1()
         {
             var mostCommonNumberStr = string.Empty;
-            for(var i = 1; i < input[0].Length; i++)
+            for(var i = 0; i < input[0].Length; i++)
             {
-                var mostCommonNumber = GetCommonNumber(i - 1);
+                var mostCommonNumber = GetCommonNumber(i, input, true);
                 mostCommonNumberStr = $"{mostCommonNumberStr}{mostCommonNumber}";
             }
 
             var leastCommonNumberStr = string.Empty;
-            foreach (var number in mostCommonNumberStr)
+            for (var i = 0; i < input[0].Length; i++)
             {
-                var convert = number == '0' ? '1' : '0';
-                leastCommonNumberStr = $"{leastCommonNumberStr}{convert}";
+                var leastCommonNumber = GetCommonNumber(i, input, false);
+                leastCommonNumberStr = $"{leastCommonNumberStr}{leastCommonNumber}";
             }
 
-            return (Convert.ToInt32(mostCommonNumberStr, 2) * 2) * (Convert.ToInt32(leastCommonNumberStr, 2) * 2);
+            return Convert.ToInt32(mostCommonNumberStr, 2) * Convert.ToInt32(leastCommonNumberStr, 2);
         }
 
         public int SolvePart2()
         {
-            return 0;
+            var oxygen = GetRating(true);
+            var co2 = GetRating(false);
+
+            return Convert.ToInt32(oxygen, 2) * Convert.ToInt32(co2, 2);
         }
 
-        public int GetCommonNumber(int column)
+        private string GetRating(bool mostCommon)
         {
-            var countZero = 0;
-            var countOne = 0;
-            for (var i = 0; i < input.Length; i++)
+            var col = 0;
+            var numbersInput = input;
+            while (numbersInput.Length > 1)
             {
-                var value = input[i].Substring(column, 1);
-                if (value == "0") countZero++;
-                if (value == "1") countOne++;
+                var commonNumber = GetCommonNumber(col, numbersInput, mostCommon);
+                numbersInput = numbersInput.Where(x => x[col].ToString() == commonNumber).ToArray();
+                col++;
             }
-            return countOne > countZero ? 1 : 0;
+            return numbersInput[0];
+        }
+
+        public string GetCommonNumber(int column, string[] numbersInput, bool mostCommon)
+        {
+            var zeroCount = numbersInput.Count(x => x[column] == '0');
+            var oneCount = numbersInput.Count(x => x[column] == '1');
+            if (mostCommon)
+            {
+                return oneCount >= zeroCount ? "1" : "0";
+            }
+            else
+            {
+                return oneCount >= zeroCount ? "0" : "1";
+            }            
         }
     }
 }

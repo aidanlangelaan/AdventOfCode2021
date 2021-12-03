@@ -4,7 +4,7 @@
     {
         private readonly int[] input;
 
-        public Day01() => input = File.ReadAllLines("Challenges\\Day01\\Day01Input.txt").Select(i => int.Parse(i)).ToArray();
+        public Day01(string[] Input) => input = Input.Select(i => int.Parse(i)).ToArray();
 
         public int SolvePart1()
         {
