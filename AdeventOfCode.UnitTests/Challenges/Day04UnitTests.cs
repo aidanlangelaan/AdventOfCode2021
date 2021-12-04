@@ -47,14 +47,14 @@ namespace AdeventOfCode.UnitTests.Challenges
             Assert.AreEqual(4512, result);
         }
 
-        //[TestMethod]
-        //public void Example_Part2_ShouldReturn230()
-        //{
-        //    // act
-        //    var result = day04.SolvePart2();
+        [TestMethod]
+        public void Example_Part2_ShouldReturn1924()
+        {
+            // act
+            var result = day04.SolvePart2();
 
-        //    // assert
-        //    Assert.AreEqual(230, result);
-        //}
+            // assert
+            Assert.AreEqual(1924, result);
+        }
     }
 }
