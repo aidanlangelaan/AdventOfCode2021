@@ -22,3 +22,10 @@ var day03Part1 = day03.SolvePart1();
 Console.WriteLine($"part 1 result: {day03Part1}");
 var day03Part2 = day03.SolvePart2();
 Console.WriteLine($"part 2 result: {day03Part2}\r\n");
+
+Console.WriteLine("- Day 04 -");
+Day04 day04 = new Day04(File.ReadAllLines("Challenges\\Day04\\Day04Input.txt"));
+var day04Part1 = day04.SolvePart1();
+Console.WriteLine($"part 1 result: {day04Part1}");
+var day04Part2 = day04.SolvePart2();
+Console.WriteLine($"part 2 result: {day04Part2}\r\n");

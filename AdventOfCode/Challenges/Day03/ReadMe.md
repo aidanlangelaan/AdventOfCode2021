@@ -1,4 +1,4 @@
-﻿# Day 2: Dive!
+﻿# Day 3: Binary Diagnostic
 
 ## Part 1
 

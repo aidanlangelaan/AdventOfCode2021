@@ -46,7 +46,7 @@
             return numbersInput[0];
         }
 
-        public string GetCommonNumber(int column, string[] numbersInput, bool mostCommon)
+        private string GetCommonNumber(int column, string[] numbersInput, bool mostCommon)
         {
             var zeroCount = numbersInput.Count(x => x[column] == '0');
             var oneCount = numbersInput.Count(x => x[column] == '1');
