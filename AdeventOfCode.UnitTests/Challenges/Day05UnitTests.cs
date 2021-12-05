@@ -29,14 +29,14 @@ namespace AdeventOfCode.UnitTests.Challenges
             Assert.AreEqual(5, result);
         }
 
-        //[TestMethod]
-        //public void Example_Part2_ShouldReturn1924()
-        //{
-        //    // act
-        //    var result = day05.SolvePart2();
+        [TestMethod]
+        public void Example_Part2_ShouldReturn12()
+        {
+            // act
+            var result = day05.SolvePart2();
 
-        //    // assert
-        //    Assert.AreEqual(1924, result);
-        //}
+            // assert
+            Assert.AreEqual(12, result);
+        }
     }
 }

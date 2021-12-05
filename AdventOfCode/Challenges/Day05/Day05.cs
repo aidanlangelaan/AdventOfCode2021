@@ -8,6 +8,18 @@
 
         public int SolvePart1()
         {
+            Dictionary<(int, int), int> positions = GetPositions(false);
+            return positions.Count(x => x.Value > 1);
+        }
+
+        public int SolvePart2()
+        {
+            Dictionary<(int, int), int> positions = GetPositions(true);
+            return positions.Count(x => x.Value > 1);
+        }
+
+        private Dictionary<(int, int), int> GetPositions(bool allowDiagonal)
+        {
             Dictionary<(int, int), int> positions = new Dictionary<(int, int), int>();
             foreach (var range in input)
             {
@@ -16,32 +28,40 @@
                 var start = startAndEnd[0].Split(',').Select(int.Parse).ToArray();
                 var end = startAndEnd[1].Split(',').Select(int.Parse).ToArray();
 
-                var startX = start[0];
-                var startY = start[1];
-                var endX = end[0];
-                var endY = end[1];
-
-                if (startX != endX && startY != endY)
+                if (!allowDiagonal && (start[0] != end[0] && start[1] != end[1]))
                 {
                     continue;
                 }
 
-                if (start[0] > end[0] || start[1] > end[1])
-                {
-                    startX = end[0];
-                    startY = end[1];
-                    endX = start[0];
-                    endY = start[1];
-                }
+                positions = CalculatePostionsForRange(positions, start, end);
+            }
 
-                for (var x = startX; x <= endX; x++)
+            return positions;
+        }
+
+        private Dictionary<(int, int), int> CalculatePostionsForRange(Dictionary<(int, int), int> positions, int[] start, int[] end)
+        {
+            var xPositions = start[0] <= end[0]
+                ? Enumerable.Range(start[0], end[0] - start[0] + 1).ToArray()
+                : Enumerable.Range(end[0], start[0] - end[0] + 1).Reverse().ToArray();
+
+            var yPositions = start[1] <= end[1]
+                ? Enumerable.Range(start[1], end[1] - start[1] + 1).ToArray()
+                : Enumerable.Range(end[1], start[1] - end[1] + 1).Reverse().ToArray();
+
+            if ((xPositions.Length > 1 && yPositions.Length == 1) || (xPositions.Length == 1 && yPositions.Length > 1))
+            {
+                for (var i = 0; i < xPositions.Length; i++)
                 {
-                    for (var y = startY; y <= endY; y++)
+                    for (var j = 0; j < yPositions.Length; j++)
                     {
+                        var x = xPositions[i];
+                        var y = yPositions[j];
+
                         if (positions.ContainsKey((x, y)))
                         {
                             positions[(x, y)] += 1;
-                        } 
+                        }
                         else
                         {
                             positions.Add((x, y), 1);
@@ -49,13 +69,25 @@
                     }
                 }
             }
+            else
+            {
+                for (var i = 0; i < xPositions.Length; i++)
+                {
+                    var x = xPositions[i];
+                    var y = yPositions[i];
 
-            return positions.Count(x => x.Value > 1);
-        }
+                    if (positions.ContainsKey((x, y)))
+                    {
+                        positions[(x, y)] += 1;
+                    }
+                    else
+                    {
+                        positions.Add((x, y), 1);
+                    }
+                }
+            }
 
-        public int SolvePart2()
-        {
-            return 0;
+            return positions;
         }
     }
 }
