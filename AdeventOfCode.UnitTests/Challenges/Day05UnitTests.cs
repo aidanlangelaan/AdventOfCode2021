@@ -26,7 +26,7 @@ namespace AdeventOfCode.UnitTests.Challenges
             var result = day05.SolvePart1();
 
             // assert
-            Assert.AreEqual(4512, result);
+            Assert.AreEqual(5, result);
         }
 
         //[TestMethod]
