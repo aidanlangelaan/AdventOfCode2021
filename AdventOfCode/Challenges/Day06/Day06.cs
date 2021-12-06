@@ -6,38 +6,62 @@
 
         public Day06(string Input) => input = Input.Split(',').Select(int.Parse).ToList();
 
-        public int SolvePart1()
+        public long SolvePart1()
         {
-            var fishies = input;
-            var maxDays = 80;
-            var day = 0;
-            while (day < maxDays)
-            {
-                var babyFish = new List<int>();
-                fishies = fishies.Select(x =>
-                {
-                    if (x == 0)
-                    {
-                        babyFish.Add(8);
-                        x = 6;
-                    } else
-                    {
-                        x--;
-                    }
-
-                    return x;
-                }).ToList();
-
-                fishies.AddRange(babyFish);
-
-                day++;
-            }
-            return fishies.Count;
+            var fishies = BreedFishForDays(80);
+            return fishies.Sum(f => f.Count);
         }
 
-        public int SolvePart2()
+        public long SolvePart2()
         {
-            return 0;
+            var fishies = BreedFishForDays(256);
+            return fishies.Sum(f => f.Count);
+        }
+
+        private List<FishGroup> BreedFishForDays(int days)
+        {
+            var day = 0;
+            var fishyGroups = input.GroupBy(i => i)
+                .Select(f => new FishGroup { Age = f.Key, Count = (long)f.Count() })
+                .ToList();
+
+            while (day < days)
+            {
+                List<FishGroup> updatedFish = new List<FishGroup>();
+                for (var i = 0; i < fishyGroups.Count(); i++)
+                {
+                    var fishGroup = fishyGroups[i];
+                    if (fishGroup.Age == 0)
+                    {
+                        updatedFish.Add(new FishGroup { Age = 8, Count = fishGroup.Count });
+                        updatedFish.Add(new FishGroup { Age = 6, Count = fishGroup.Count });
+
+                        continue;
+                    }
+                    else if (fishGroup.Age - 1 > 5)
+                    {
+                        var existingGroup = updatedFish.Where(x => x.Age == fishGroup.Age - 1).FirstOrDefault();
+                        if (existingGroup != null)
+                        {
+                            existingGroup.Count += fishGroup.Count;
+                            var groupIndex = updatedFish.FindIndex(x => x.Age == fishGroup.Age - 1);
+                            updatedFish[groupIndex] = existingGroup;
+                            continue;
+                        }
+                    }
+
+                    updatedFish.Add(new FishGroup { Age = fishGroup.Age - 1, Count = fishGroup.Count });
+                }
+                fishyGroups = updatedFish;
+                day++;
+            }
+            return fishyGroups;
+        }
+
+        internal class FishGroup
+        {
+            public int Age { get; set; }
+            public long Count { get; set; }
         }
     }
 }
