@@ -8,9 +8,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E38BA9D8-5C37-488B-B3A1-76D58FF929B6}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		Readme.md = Readme.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdeventOfCode.Tests", "AdeventOfCode.UnitTests\AdeventOfCode.Tests.csproj", "{40F34BA5-733D-47D6-BBBC-C1CF139ACF2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdeventOfCode.Tests", "AdeventOfCode.UnitTests\AdeventOfCode.Tests.csproj", "{40F34BA5-733D-47D6-BBBC-C1CF139ACF2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
