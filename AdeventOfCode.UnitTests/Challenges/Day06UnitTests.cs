@@ -11,11 +11,7 @@ namespace AdeventOfCode.UnitTests.Challenges
         [TestInitialize]
         public void SetupTests()
         {
-            var testInput = new[]
-            {
-                3,4,3,1,2
-            };
-
+            var testInput = "3,4,3,1,2";   
             day06 = new Day06(testInput);
         }
 

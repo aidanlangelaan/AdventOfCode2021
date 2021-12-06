@@ -36,3 +36,10 @@ var day05Part1 = day05.SolvePart1();
 Console.WriteLine($"part 1 result: {day05Part1}");
 var day05Part2 = day05.SolvePart2();
 Console.WriteLine($"part 2 result: {day05Part2}\r\n");
+
+Console.WriteLine("- Day 06 -");
+Day06 day06 = new Day06(File.ReadAllText("Challenges\\Day06\\Day06Input.txt"));
+var day06Part1 = day06.SolvePart1();
+Console.WriteLine($"part 1 result: {day06Part1}");
+var day06Part2 = day06.SolvePart2();
+Console.WriteLine($"part 2 result: {day06Part2}\r\n");
