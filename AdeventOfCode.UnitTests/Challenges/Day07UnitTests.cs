@@ -11,19 +11,19 @@ namespace AdeventOfCode.UnitTests.Challenges
         [TestInitialize]
         public void SetupTests()
         {
-            var testInput = new[] { "" };
+            var testInput = "16,1,2,0,4,2,7,1,2,14";
             day07 = new Day07(testInput);
         }
 
-        //[TestMethod]
-        //public void Example_Part1_ShouldReturn5934()
-        //{
-        //    // act
-        //    var result = day07.SolvePart1();
+        [TestMethod]
+        public void Example_Part1_ShouldReturn37()
+        {
+            // act
+            var result = day07.SolvePart1();
 
-        //    // assert
-        //    Assert.AreEqual(5934, result);
-        //}
+            // assert
+            Assert.AreEqual(37, result);
+        }
 
         //[TestMethod]
         //public void Example_Part2_ShouldReturn26984457539()

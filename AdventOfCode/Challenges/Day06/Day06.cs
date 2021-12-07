@@ -22,7 +22,7 @@
         {
             var day = 0;
             var fishyGroups = input.GroupBy(i => i)
-                .Select(f => new FishGroup { Age = f.Key, Count = (long)f.Count() })
+                .Select(f => new FishGroup { Age = f.Key, Count = f.Count() })
                 .ToList();
 
             while (day < days)
