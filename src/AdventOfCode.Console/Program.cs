@@ -15,9 +15,9 @@ var day03 = new DaySolver<Day03>(true);
 day03.SolvePart1<int>();
 day03.SolvePart2<int>();
 
-// var day04 = new Solver<Day04>(true);
-// day04.SolveDayPart1();
-// day04.SolveDayPart2();
+var day04 = new DaySolver<Day04>(true);
+day04.SolvePart1<int>();
+day04.SolvePart2<int>();
 
 var day05 = new DaySolver<Day05>(true);
 day05.SolvePart1<int>();

@@ -19,6 +19,7 @@ public class Day04 : Challenge<Day04>
         var winningBoard = GetWinningBoard(out var winningDraw, true);
 
         var unmarked = winningBoard.Where(x => !x.Value.Item2).Sum(x => x.Value.Item1);
+        
         return new Solution<TValueType>((TValueType)Convert.ChangeType(unmarked * winningDraw, typeof(TValueType)));
     }
 
@@ -27,6 +28,7 @@ public class Day04 : Challenge<Day04>
         var winningBoard = GetWinningBoard(out var winningDraw, false);
 
         var unmarked = winningBoard.Where(x => !x.Value.Item2).Sum(x => x.Value.Item1);
+        
         return new Solution<TValueType>((TValueType)Convert.ChangeType(unmarked * winningDraw, typeof(TValueType)));
     }
 
@@ -113,12 +115,14 @@ public class Day04 : Challenge<Day04>
 
     private static Dictionary<int, Dictionary<(int, int), (int, bool)>> SetupBoards(string[] input)
     {
-        var numberOfBoards = input.Length / 5;
+        var boardInput = input.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+        
+        var numberOfBoards = boardInput.Length / 5;
         Dictionary<int, Dictionary<(int, int), (int, bool)>> boards = new Dictionary<int, Dictionary<(int, int), (int, bool)>>();
         for (var boardCount = 0; boardCount < numberOfBoards; boardCount++)
         {
             Dictionary<(int, int), (int, bool)> board = new Dictionary<(int, int), (int, bool)>();
-            var rows = input.Skip(boards.Count * 5).Take(5).ToArray();
+            var rows = boardInput.Skip(boards.Count * 5).Take(5).ToArray();
             for (int i = 0; i < rows.Count(); i++)
             {
                 var columns = rows[i].Split(' ')
