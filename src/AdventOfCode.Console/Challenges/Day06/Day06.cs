@@ -6,7 +6,7 @@ namespace AdventOfCode.Challenges;
 [Description("Day 06")]
 public class Day06 : Challenge<Day06>
 {
-    public Day06(string[] Input) : base(Input)
+    public Day06(string[] input) : base(input)
     {
     }
 
@@ -14,25 +14,29 @@ public class Day06 : Challenge<Day06>
     {
     }
 
-    public override int SolvePart1()
+    public override Solution<TValueType> SolvePart1<TValueType>()
     {
-        var fishies = BreedFishForDays(80);
-        return fishies.Sum(f => f.Count);
+        var fish = BreedFishForDays(80);
+        return new Solution<TValueType>((TValueType)Convert.ChangeType(fish.Sum(f => f.Count), typeof(TValueType)));
     }
 
-    public override int SolvePart2()
+    public override Solution<TValueType> SolvePart2<TValueType>()
     {
-        var fishies = BreedFishForDays(256);
-        return fishies.Sum(f => f.Count);
+        var fish = BreedFishForDays(256);
+        long result = fish.Sum(f => (long)f.Count);
+        
+        return new Solution<TValueType>((TValueType)Convert.ChangeType(result, typeof(TValueType)));
     }
 
     private List<FishGroup> BreedFishForDays(int days)
     {
+        var input = _input.First().Split(',').Select(int.Parse).ToList();
+
         var day = 0;
         var fishyGroups = input.GroupBy(i => i)
             .Select(f => new FishGroup { Age = f.Key, Count = f.Count() })
             .ToList();
-
+    
         while (day < days)
         {
             List<FishGroup> updatedFish = new List<FishGroup>();
@@ -43,12 +47,12 @@ public class Day06 : Challenge<Day06>
                 {
                     updatedFish.Add(new FishGroup { Age = 8, Count = fishGroup.Count });
                     updatedFish.Add(new FishGroup { Age = 6, Count = fishGroup.Count });
-
+    
                     continue;
                 }
                 else if (fishGroup.Age - 1 > 5)
                 {
-                    var existingGroup = updatedFish.Where(x => x.Age == fishGroup.Age - 1).FirstOrDefault();
+                    var existingGroup = updatedFish.FirstOrDefault(x => x.Age == fishGroup.Age - 1);
                     if (existingGroup != null)
                     {
                         existingGroup.Count += fishGroup.Count;
@@ -57,7 +61,7 @@ public class Day06 : Challenge<Day06>
                         continue;
                     }
                 }
-
+    
                 updatedFish.Add(new FishGroup { Age = fishGroup.Age - 1, Count = fishGroup.Count });
             }
             fishyGroups = updatedFish;
@@ -66,9 +70,9 @@ public class Day06 : Challenge<Day06>
         return fishyGroups;
     }
 
-    internal class FishGroup
+    private class FishGroup
     {
-        public int Age { get; set; }
-        public long Count { get; set; }
+        public int Age { get; init; }
+        public int Count { get; set; }
     }
 }

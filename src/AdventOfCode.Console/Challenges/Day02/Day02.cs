@@ -6,7 +6,7 @@ namespace AdventOfCode.Challenges;
 [Description("Day 02")]
 public class Day02 : Challenge<Day02>
 {
-    public Day02(string[] Input) : base(Input)
+    public Day02(string[] input) : base(input)
     {
     }
 
@@ -14,11 +14,11 @@ public class Day02 : Challenge<Day02>
     {
     }
 
-    public override int SolvePart1()
+    public override Solution<TValueType> SolvePart1<TValueType>()
     {
         var horizontal = 0;
         var depth = 0;
-        foreach (var i in input)
+        foreach (var i in _input)
         {
             var direction = i.Split(' ')[0];
             var amount = int.Parse(i.Split(' ')[1]);
@@ -35,15 +35,15 @@ public class Day02 : Challenge<Day02>
                     break;
             }
         }
-        return horizontal * depth;
+        return new Solution<TValueType>((TValueType)Convert.ChangeType(horizontal * depth, typeof(TValueType)));
     }
 
-    public override int SolvePart2()
+    public override Solution<TValueType> SolvePart2<TValueType>()
     {
         var horizontal = 0;
         var depth = 0;
         var aim = 0;
-        foreach (var i in input)
+        foreach (var i in _input)
         {
             var direction = i.Split(' ')[0];
             var amount = int.Parse(i.Split(' ')[1]);
@@ -61,6 +61,6 @@ public class Day02 : Challenge<Day02>
                     break;
             }
         }
-        return horizontal * depth;
+        return new Solution<TValueType>((TValueType)Convert.ChangeType(horizontal * depth, typeof(TValueType)));
     }
 }

@@ -6,7 +6,7 @@ namespace AdventOfCode.Challenges;
 [Description("Day 05")]
 public class Day05 : Challenge<Day05>
 {
-    public Day05(string[] Input) : base(Input)
+    public Day05(string[] input) : base(input)
     {
     }
 
@@ -14,22 +14,22 @@ public class Day05 : Challenge<Day05>
     {
     }
 
-    public override int SolvePart1()
+    public override Solution<TValueType> SolvePart1<TValueType>()
     {
-        Dictionary<(int, int), int> positions = GetPositions(false);
-        return positions.Count(x => x.Value > 1);
+        var positions = GetPositions(false);
+        return new Solution<TValueType>((TValueType)Convert.ChangeType(positions.Count(x => x.Value > 1), typeof(TValueType)));
     }
 
-    public override int SolvePart2()
+    public override Solution<TValueType> SolvePart2<TValueType>()
     {
-        Dictionary<(int, int), int> positions = GetPositions(true);
-        return positions.Count(x => x.Value > 1);
+        var positions = GetPositions(true);
+        return new Solution<TValueType>((TValueType)Convert.ChangeType(positions.Count(x => x.Value > 1), typeof(TValueType)));
     }
 
     private Dictionary<(int, int), int> GetPositions(bool allowDiagonal)
     {
-        Dictionary<(int, int), int> positions = new Dictionary<(int, int), int>();
-        foreach (var range in input)
+        var positions = new Dictionary<(int, int), int>();
+        foreach (var range in _input)
         {
             var startAndEnd = range.Split(" -> ");
 
@@ -41,13 +41,13 @@ public class Day05 : Challenge<Day05>
                 continue;
             }
 
-            positions = CalculatePostionsForRange(positions, start, end);
+            positions = CalculatePositionsForRange(positions, start, end);
         }
 
         return positions;
     }
 
-    private Dictionary<(int, int), int> CalculatePostionsForRange(Dictionary<(int, int), int> positions, int[] start, int[] end)
+    private static Dictionary<(int, int), int> CalculatePositionsForRange(Dictionary<(int, int), int> positions, int[] start, int[] end)
     {
         var xPositions = start[0] <= end[0]
             ? Enumerable.Range(start[0], end[0] - start[0] + 1).ToArray()
@@ -59,12 +59,12 @@ public class Day05 : Challenge<Day05>
 
         if ((xPositions.Length > 1 && yPositions.Length == 1) || (xPositions.Length == 1 && yPositions.Length > 1))
         {
-            for (var i = 0; i < xPositions.Length; i++)
+            foreach (var t in xPositions)
             {
-                for (var j = 0; j < yPositions.Length; j++)
+                foreach (var t1 in yPositions)
                 {
-                    var x = xPositions[i];
-                    var y = yPositions[j];
+                    var x = t;
+                    var y = t1;
 
                     if (positions.ContainsKey((x, y)))
                     {

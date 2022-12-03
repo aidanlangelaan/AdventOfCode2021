@@ -6,10 +6,10 @@ public abstract class Challenge<TDay>
 {
     protected string[] _input;
 
-    protected Challenge(string[] Input)
+    protected Challenge(string[] input)
     {
         PrintDescription();
-        _input = Input;
+        _input = input;
     }
 
     protected Challenge()
@@ -18,8 +18,9 @@ public abstract class Challenge<TDay>
         _input = File.ReadAllLines($"Challenges\\{typeof(TDay).Name}\\Input.txt");
     }
 
-    public abstract int SolvePart1();
-    public abstract int SolvePart2();
+    public abstract Solution<TValueType> SolvePart1<TValueType>();
+    
+    public abstract Solution<TValueType> SolvePart2<TValueType>();
     
     private static void PrintDescription()
     {

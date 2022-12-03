@@ -6,7 +6,7 @@ namespace AdventOfCode.Challenges;
 [Description("Day 04")]
 public class Day04 : Challenge<Day04>
 {
-    public Day04(string[] Input) : base(Input)
+    public Day04(string[] input) : base(input)
     {
     }
 
@@ -14,28 +14,26 @@ public class Day04 : Challenge<Day04>
     {
     }
 
-    public override int SolvePart1()
+    public override Solution<TValueType> SolvePart1<TValueType>()
     {
-        int winningDraw;
-        var winningBoard = GetWinningBoard(out winningDraw, true);
+        var winningBoard = GetWinningBoard(out var winningDraw, true);
 
         var unmarked = winningBoard.Where(x => !x.Value.Item2).Sum(x => x.Value.Item1);
-        return unmarked * winningDraw;
+        return new Solution<TValueType>((TValueType)Convert.ChangeType(unmarked * winningDraw, typeof(TValueType)));
     }
 
-    public override int SolvePart2()
+    public override Solution<TValueType> SolvePart2<TValueType>()
     {
-        int winningDraw;
-        var winningBoard = GetWinningBoard(out winningDraw, false);
+        var winningBoard = GetWinningBoard(out var winningDraw, false);
 
         var unmarked = winningBoard.Where(x => !x.Value.Item2).Sum(x => x.Value.Item1);
-        return unmarked * winningDraw;
+        return new Solution<TValueType>((TValueType)Convert.ChangeType(unmarked * winningDraw, typeof(TValueType)));
     }
 
     private Dictionary<(int, int), (int, bool)> GetWinningBoard(out int winningDraw, bool firstBoard)
     {
-        var draws = input[0].Split(',').Select(int.Parse);
-        var bingo = input[1..input.Length];
+        var draws = _input[0].Split(',').Select(int.Parse);
+        var bingo = _input[1.._input.Length];
         var boards = SetupBoards(bingo);
         var completedBoards = new Dictionary<int, Dictionary<(int, int), (int, bool)>>();
         var history = new List<(int, int)>();
@@ -45,9 +43,9 @@ public class Day04 : Challenge<Day04>
             boards = UpdateBoard(boards, draw);
             var winningBoards = ValidateBoards(boards, firstBoard);
 
-            if (winningBoards.Where(b => !history.Any(h => h.Item1 == b)).Any())
+            if (!winningBoards.Any(b => history.All(h => h.Item1 != b))) continue;
             {
-                var newWins = winningBoards.Where(b => !history.Any(h => h.Item1 == b)).ToList();
+                var newWins = winningBoards.Where(b => history.All(h => h.Item1 != b)).ToList();
                 foreach (var win in newWins)
                 {
                     history.Add((win, draw));
@@ -76,21 +74,17 @@ public class Day04 : Challenge<Day04>
         {
             for (var row = 0; row < 5; row++)
             {
-                var allTrue = board.Value.Where(x => x.Key.Item1 == row && x.Value.Item2 == true).ToArray();
-                if (allTrue.Any() && allTrue.Length == 5)
-                {
-                    if (!winningBoards.Contains(board.Key)) winningBoards.Add(board.Key);
-                    if (firstBoard) break;
-                }
+                var allTrue = board.Value.Where(x => x.Key.Item1 == row && x.Value.Item2).ToArray();
+                if (!allTrue.Any() || allTrue.Length != 5) continue;
+                if (!winningBoards.Contains(board.Key)) winningBoards.Add(board.Key);
+                if (firstBoard) break;
             }
             for (var column = 0; column < 5; column++)
             {
-                var allTrue = board.Value.Where(x => x.Key.Item2 == column && x.Value.Item2 == true).ToArray();
-                if (allTrue.Any() && allTrue.Length == 5)
-                {
-                    if (!winningBoards.Contains(board.Key)) winningBoards.Add(board.Key);
-                    if (firstBoard) break;
-                }
+                var allTrue = board.Value.Where(x => x.Key.Item2 == column && x.Value.Item2).ToArray();
+                if (!allTrue.Any() || allTrue.Length != 5) continue;
+                if (!winningBoards.Contains(board.Key)) winningBoards.Add(board.Key);
+                if (firstBoard) break;
             }
         }
 

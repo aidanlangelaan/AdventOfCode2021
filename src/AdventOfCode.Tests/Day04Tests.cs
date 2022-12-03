@@ -39,19 +39,19 @@ public class Day04Tests
     public void Example_Part1_ShouldReturn4512()
     {
         // act
-        var result = _day04.SolvePart1();
+        var result = _day04.SolvePart1<int>();
 
         // assert
-        Assert.That(result, Is.EqualTo(4512));
+        Assert.That(result.Value, Is.EqualTo(4512));
     }
 
     [Test]
     public void Example_Part2_ShouldReturn1924()
     {
         // act
-        var result = _day04.SolvePart2();
+        var result = _day04.SolvePart2<int>();
 
         // assert
-        Assert.That(result, Is.EqualTo(1924));
+        Assert.That(result.Value, Is.EqualTo(1924));
     }
 }

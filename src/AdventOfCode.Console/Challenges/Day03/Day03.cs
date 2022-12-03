@@ -6,7 +6,7 @@ namespace AdventOfCode.Challenges;
 [Description("Day 03")]
 public class Day03 : Challenge<Day03>
 {
-    public Day03(string[] Input) : base(Input)
+    public Day03(string[] input) : base(input)
     {
     }
 
@@ -14,37 +14,37 @@ public class Day03 : Challenge<Day03>
     {
     }
 
-    public override int SolvePart1()
+    public override Solution<TValueType> SolvePart1<TValueType>()
     {
         var mostCommonNumberStr = string.Empty;
-        for (var i = 0; i < input[0].Length; i++)
+        for (var i = 0; i < _input[0].Length; i++)
         {
-            var mostCommonNumber = GetCommonNumber(i, input, true);
+            var mostCommonNumber = GetCommonNumber(i, _input, true);
             mostCommonNumberStr = $"{mostCommonNumberStr}{mostCommonNumber}";
         }
 
         var leastCommonNumberStr = string.Empty;
-        for (var i = 0; i < input[0].Length; i++)
+        for (var i = 0; i < _input[0].Length; i++)
         {
-            var leastCommonNumber = GetCommonNumber(i, input, false);
+            var leastCommonNumber = GetCommonNumber(i, _input, false);
             leastCommonNumberStr = $"{leastCommonNumberStr}{leastCommonNumber}";
         }
 
-        return Convert.ToInt32(mostCommonNumberStr, 2) * Convert.ToInt32(leastCommonNumberStr, 2);
+        return new Solution<TValueType>((TValueType)Convert.ChangeType(Convert.ToInt32(mostCommonNumberStr, 2) * Convert.ToInt32(leastCommonNumberStr, 2), typeof(TValueType)));
     }
 
-    public override int SolvePart2()
+    public override Solution<TValueType> SolvePart2<TValueType>()
     {
         var oxygen = GetRating(true);
         var co2 = GetRating(false);
 
-        return Convert.ToInt32(oxygen, 2) * Convert.ToInt32(co2, 2);
+        return new Solution<TValueType>((TValueType)Convert.ChangeType(Convert.ToInt32(oxygen, 2) * Convert.ToInt32(co2, 2), typeof(TValueType)));
     }
 
     private string GetRating(bool mostCommon)
     {
         var col = 0;
-        var numbersInput = input;
+        var numbersInput = _input;
         while (numbersInput.Length > 1)
         {
             var commonNumber = GetCommonNumber(col, numbersInput, mostCommon);

@@ -21,19 +21,19 @@ public class Day02Tests
     public void Example_Part1_ShouldReturn150()
     {
         // act
-        var result = _day02.SolvePart1();
+        var result = _day02.SolvePart1<int>();
 
         // assert
-        Assert.That(result, Is.EqualTo(150));
+        Assert.That(result.Value, Is.EqualTo(150));
     }
 
     [Test]
     public void Example_Part2_ShouldReturn900()
     {
         // act
-        var result = _day02.SolvePart2();
+        var result = _day02.SolvePart2<int>();
 
         // assert
-        Assert.That(result, Is.EqualTo(900));
+        Assert.That(result.Value, Is.EqualTo(900));
     }
 }
